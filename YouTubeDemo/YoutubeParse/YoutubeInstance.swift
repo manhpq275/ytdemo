@@ -90,6 +90,19 @@ class YoutubeInstance: NSObject, WKNavigationDelegate  {
         }
     }
     
+    func getHistoriesSection(isLoadMore: Bool, completionHandler: @escaping ([VideoModel]) -> Void) {
+        if (isLoadMore) {
+            self.loadMore { response in
+                //self.saveLastRecent(lastRecent: response)
+                completionHandler(response)
+                return
+            }
+            return
+        } else {
+            completionHandler(self.firstVideos)
+        }
+    }
+    
     private func saveLastRecent(lastRecent: [VideoModel]) {
         self.firstVideos = lastRecent
     }

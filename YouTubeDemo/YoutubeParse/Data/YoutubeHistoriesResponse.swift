@@ -41,6 +41,7 @@ struct YoutubeHistoriesReponse: Codable {
             guard let videoContents = sectionContent.itemSectionRenderer?.contents else {
                 continue
             }
+            let historyDate = sectionContent.itemSectionRenderer?.header?.itemSectionHeaderRenderer?.title?.runs?.first?.text
             for videoContent in videoContents {
                 guard let video = videoContent.videoRenderer else {
                     continue
@@ -61,6 +62,7 @@ struct YoutubeHistoriesReponse: Codable {
                 result.title = video.title?.runs?.first?.text
                 result.videoID = video.videoID
                 result.views = video.viewCountText?.simpleText
+                result.historyDate = historyDate
                 resultList.append(result)
             }
           
@@ -123,8 +125,16 @@ struct YoutubeHistoriesReponse: Codable {
     // MARK: - ItemSectionRenderer
     struct ItemSectionRenderer: Codable {
         var contents: [ItemSectionRendererContent]?
+        var header: ItemSectionRendererHeader?
+    }
+    
+    struct ItemSectionRendererHeader: Codable {
+        var itemSectionHeaderRenderer: ItemSectionHeaderRendererHeader?
     }
 
+    struct ItemSectionHeaderRendererHeader: Codable {
+        var title: LongBylineTextClass?
+    }
     // MARK: - ItemSectionRendererContent
     struct ItemSectionRendererContent: Codable {
         var videoRenderer: VideoRenderer?

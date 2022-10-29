@@ -25,6 +25,8 @@ struct VideoModel {
     var statusPublished: Int? = nil
     var existEvent: Int? = nil
     var shareUrl: String? = nil
+    var historyDate: String? = nil
+    
 }
 
 struct ChannelModel {
